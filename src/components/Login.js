@@ -6,11 +6,17 @@ import { auth } from "../utils/firbase";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  updateProfile,
 } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { addUser } from "../utils/userSlice";
 
 const Login = () => {
+  const nevigate = useNavigate();
   const [isSignInForm, setIsSignInFrom] = useState(true);
   const [errorMessage, setErrorMessage] = useState(null);
+  const dispatch = useDispatch();
 
   const toggleSignInForm = () => {
     setIsSignInFrom(!isSignInForm);
@@ -18,7 +24,7 @@ const Login = () => {
 
   const email = useRef(null);
   const password = useRef(null);
-  const name = useRef(null)
+  const name = useRef(null);
 
   const handleButtonClick = () => {
     console.log("handleButtonClick");
@@ -27,11 +33,13 @@ const Login = () => {
       email.current?.value,
       password.current?.value,
       name.current?.value
-    )
+    );
     console.log(message);
     setErrorMessage(message);
 
-    if (message) return
+    // if (message === null){}
+    // or
+    if (message) return;
 
     // sign in and sign up logic
     // signUp logic
@@ -44,7 +52,28 @@ const Login = () => {
         .then((userCredential) => {
           // Signed in
           const user = userCredential.user;
-          console.log("signup", user);
+          updateProfile(user, {
+            displayName: name.current.value,
+            photoURL: "https://avatars.githubusercontent.com/u/108898518?v=4",
+          })
+            .then(() => {
+              const { uid, email, displayName, photoURL } = auth.currentUser;
+              dispatch(
+                addUser({
+                  uid: uid,
+                  email: email,
+                  displayName: displayName,
+                  photoURL: photoURL,
+                })
+              );
+              // Profile updated!
+              // ...
+              console.log("signup", user);
+              nevigate("/browse");
+            })
+            .catch((error) => {
+              setErrorMessage(error.message);
+            });
         })
         .catch((error) => {
           const errorCode = error.code;
@@ -62,6 +91,7 @@ const Login = () => {
           // Signed in
           const user = userCredential.user;
           console.log("signin", user);
+          nevigate("/browse");
         })
         .catch((error) => {
           const errorCode = error.code;
