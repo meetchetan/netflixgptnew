@@ -8,12 +8,12 @@ import {
   signInWithEmailAndPassword,
   updateProfile,
 } from "firebase/auth";
-import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
+import { USERAVATAR } from "../utils/constants";
+import {BG_IMG} from "../utils/constants"
 
 const Login = () => {
-  const nevigate = useNavigate();
   const [isSignInForm, setIsSignInFrom] = useState(true);
   const [errorMessage, setErrorMessage] = useState(null);
   const dispatch = useDispatch();
@@ -54,7 +54,7 @@ const Login = () => {
           const user = userCredential.user;
           updateProfile(user, {
             displayName: name.current.value,
-            photoURL: "https://avatars.githubusercontent.com/u/108898518?v=4",
+            photoURL: USERAVATAR,
           })
             .then(() => {
               const { uid, email, displayName, photoURL } = auth.currentUser;
@@ -69,7 +69,6 @@ const Login = () => {
               // Profile updated!
               // ...
               console.log("signup", user);
-              nevigate("/browse");
             })
             .catch((error) => {
               setErrorMessage(error.message);
@@ -91,7 +90,6 @@ const Login = () => {
           // Signed in
           const user = userCredential.user;
           console.log("signin", user);
-          nevigate("/browse");
         })
         .catch((error) => {
           const errorCode = error.code;
@@ -107,7 +105,7 @@ const Login = () => {
       <div>
         <img
           className="absolute"
-          src="https://assets.nflxext.com/ffe/siteui/vlv3/855ed6e2-d9f1-4afd-90da-96023ec747c3/85eb5b91-25ed-4965-ace9-ba8e4a0ead8d/IN-en-20230828-popsignuptwoweeks-perspective_alpha_website_small.jpg"
+          src={BG_IMG}
           alt="bgImage"
         />
       </div>
