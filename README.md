@@ -29,6 +29,7 @@
 - updtae store with trailer video data
 - embeded the youTube video and make it autopay and mute
 - added Tailwind classes to make main container look awesome
+- Now we will build secondary component
 
 # freatures
 
