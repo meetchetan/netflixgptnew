@@ -30,6 +30,13 @@
 - embeded the youTube video and make it autopay and mute
 - added Tailwind classes to make main container look awesome
 - Now we will build secondary component
+- build secondary component
+- build movie list
+- build movie card
+- TMDB image CDN URL
+- made the browse page amazing with taildwind css
+- usePopularMovies custom hooks
+- GPT search feature
 
 # freatures
 
