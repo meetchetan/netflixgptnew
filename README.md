@@ -37,6 +37,8 @@
 - made the browse page amazing with taildwind css
 - usePopularMovies custom hooks
 - GPT search feature
+- GPT Search bar
+- (FEATURE) Multilanguage Feature in our app
 
 # freatures
 
