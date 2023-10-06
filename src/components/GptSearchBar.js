@@ -1,3 +1,6 @@
+// Recap from 1 hr 20 minutes
+//  done till 2 hr 20 minutes
+
 import React, { useRef } from "react";
 import lang from "../utils/languageConstants";
 import { useSelector } from "react-redux";
@@ -17,7 +20,7 @@ const GptSearchBar = () => {
       API_OPTIONS
     );
     const json = await data.json();
-    console.log(json.results)
+    console.log(json.results);
     return json.results;
   };
 
