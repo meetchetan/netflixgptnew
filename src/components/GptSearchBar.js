@@ -1,4 +1,3 @@
-// Recap from 1 hr 20 minutes
 //  done till 2 hr 20 minutes
 
 import React, { useRef } from "react";
@@ -38,7 +37,7 @@ const GptSearchBar = () => {
       model: "gpt-3.5-turbo",
     });
     if (!gptResults.choices) {
-      // To Do
+      console.log("Np movie found")
     }
     console.log(gptResults.choices?.[0]?.message?.content);
     const gptMovies = gptResults.choices?.[0]?.message?.content.split(",");
