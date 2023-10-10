@@ -2,11 +2,13 @@
 
 import React, { useRef } from "react";
 import lang from "../utils/languageConstants";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import openai from "../utils/openai";
 import { API_OPTIONS } from "../utils/constants";
+import { addGptMovieResult } from "../utils/gptSlice";
 
 const GptSearchBar = () => {
+  const dispatch = useDispatch();
   const langKey = useSelector((store) => store.config.lang);
   const searchtext = useRef(null);
 
@@ -37,7 +39,7 @@ const GptSearchBar = () => {
       model: "gpt-3.5-turbo",
     });
     if (!gptResults.choices) {
-      console.log("Np movie found")
+      console.log("Np movie found");
     }
     console.log(gptResults.choices?.[0]?.message?.content);
     const gptMovies = gptResults.choices?.[0]?.message?.content.split(",");
@@ -49,6 +51,10 @@ const GptSearchBar = () => {
     const tmdbResults = await Promise.all(promiseArray);
 
     console.log(tmdbResults);
+
+    dispatch(
+      addGptMovieResult({ moviesNames: gptMovies, moviesResults: tmdbResults })
+    );
   };
 
   return (
